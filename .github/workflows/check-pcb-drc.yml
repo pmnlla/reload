@@ -25,14 +25,20 @@ jobs:
       - name: Find matching PCB files
         id: find-pcb
         run: |
-          BASE_SHA="${{ github.event.pull_request.base.sha }}"
-          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
-
-          echo "Base SHA: $BASE_SHA"
-          echo "Head SHA: $HEAD_SHA"
+          echo "Getting list of files changed in PR..."
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          echo "PR Number: $PR_NUMBER"
+          
+          FILES=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER/files" \
+            | jq -r '.[].filename')
+          
+          echo "Files changed:"
+          echo "$FILES"
           
           # Get list of modified or added PCB files
-          PCB_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA | grep kicad_pcb) 
+          PCB_FILES=$echo $FILES | grep kicad_pcb) 
           echo "Found modified KiCad PCB files: $PCB_FILES"
           echo "PCB_FILES=$PCB_FILES" >> $GITHUB_ENV
       
