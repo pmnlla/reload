@@ -16,9 +16,9 @@ jobs:
       # Install KiCad tools (if needed)
       - name: Install KiCad
         run: |
-          sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
-          sudo apt-get update
-          sudo apt-get install --yes kicad
+          sudo add-apt-repository -y ppa:kicad/kicad-9.0-releases
+          sudo apt update
+          sudo apt install --install-recommends -y kicad
       
       # Find only PCB files named after their parent folder
       # this is written by claude tyvm (i don't know shell script and didnt wanna start writing things in python and tinkering with git et al)
