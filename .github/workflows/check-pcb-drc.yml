@@ -16,41 +16,36 @@ jobs:
       # Install KiCad tools (if needed)
       - name: Install KiCad
         run: |
-          sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
-          sudo apt-get update
-          sudo apt-get install --yes kicad
+          sudo add-apt-repository -y ppa:kicad/kicad-9.0-releases
+          sudo apt update
+          sudo apt install --install-recommends -y kicad
       
       # Find only PCB files named after their parent folder
       # this is written by claude tyvm (i don't know shell script and didnt wanna start writing things in python and tinkering with git et al)
       - name: Find matching PCB files
         id: find-pcb
         run: |
-          MATCHING_FILES=""
-          for file in $(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.kicad_pcb$'); do
-            DIR_NAME=$(basename $(dirname "$file"))
-            FILE_NAME=$(basename "$file" .kicad_pcb)
-            
-            if [ "$DIR_NAME" = "$FILE_NAME" ]; then
-              MATCHING_FILES="$MATCHING_FILES $file"
-              echo "Found matching PCB: $file (directory: $DIR_NAME, filename: $FILE_NAME)"
-            fi
-          done
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+
+          echo "Base SHA: $BASE_SHA"
+          echo "Head SHA: $HEAD_SHA"
           
-          echo "PCB_FILES=$MATCHING_FILES" >> $GITHUB_ENV
-          
-          # Exit workflow early if no matching files
-          if [ -z "$MATCHING_FILES" ]; then
-            echo "No PCB files matching their parent folder name found, skipping further steps."
-            echo "SKIP_REMAINING=true" >> $GITHUB_ENV
-          else
-            echo "SKIP_REMAINING=false" >> $GITHUB_ENV
-          fi
+          # Get list of modified or added PCB files
+          PCB_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA | grep kicad_pcb) 
+          echo "Found modified KiCad PCB files: $PCB_FILES"
+          echo "PCB_FILES=$PCB_FILES" >> $GITHUB_ENV
       
       # Run your KiCad PCB checks only if matching PCBs were found
       - name: Run KiCad PCB checks
         if: env.SKIP_REMAINING != 'true'
         run: |
+          if [ -z "$PCB_FILES" ]; then
+            echo "No PCB files were modified, nothing to check."
+            exit 2
+          fi
+          
           for file in $PCB_FILES; do
-            echo "Processing matching PCB file: $file"
+            echo "Processing PCB file: $file"
             kicad-cli pcb drc --severity-error --exit-code-violations $file
-          done
+            ls -la "$file"
