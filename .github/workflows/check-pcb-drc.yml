@@ -25,8 +25,10 @@ jobs:
       - name: Find matching PCB files
         id: find-pcb
         run: |
+          git fetch origin ${{ github.base_ref }}
+          
           # Get list of modified or added PCB files
-          PCB_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.kicad_pcb$' | tr '\n' ' ')
+          PCB_FILES=$(git diff --name-only origin/${{ github.base_ref }}..HEAD | grep '\.kicad_pcb$' | tr '\n' ' ')
           echo "Found modified KiCad PCB files: $PCB_FILES"
           echo "PCB_FILES=$PCB_FILES" >> $GITHUB_ENV
       
