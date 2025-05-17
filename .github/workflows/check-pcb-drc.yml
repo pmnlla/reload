@@ -54,3 +54,4 @@ jobs:
             echo "Processing PCB file: $file"
             kicad-cli pcb drc --severity-error --exit-code-violations $file
             ls -la "$file"
+          done
