@@ -38,7 +38,7 @@ jobs:
           echo "$FILES"
           
           # Get list of modified or added PCB files
-          PCB_FILES=$echo $FILES | grep kicad_pcb) 
+          PCB_FILES=$(echo $FILES | grep kicad_pcb) 
           echo "Found modified KiCad PCB files: $PCB_FILES"
           echo "PCB_FILES=$PCB_FILES" >> $GITHUB_ENV
       
