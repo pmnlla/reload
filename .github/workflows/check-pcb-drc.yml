@@ -1,0 +1,56 @@
+name: KiCad PCB Check
+
+on:
+  pull_request:
+    paths:
+      - '**/*.kicad_pcb'
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-pcb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      # Install KiCad tools (if needed)
+      - name: Install KiCad
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
+          sudo apt-get update
+          sudo apt-get install --yes kicad
+      
+      # Find only PCB files named after their parent folder
+      # this is written by claude tyvm (i don't know shell script and didnt wanna start writing things in python and tinkering with git et al)
+      - name: Find matching PCB files
+        id: find-pcb
+        run: |
+          MATCHING_FILES=""
+          for file in $(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '\.kicad_pcb$'); do
+            DIR_NAME=$(basename $(dirname "$file"))
+            FILE_NAME=$(basename "$file" .kicad_pcb)
+            
+            if [ "$DIR_NAME" = "$FILE_NAME" ]; then
+              MATCHING_FILES="$MATCHING_FILES $file"
+              echo "Found matching PCB: $file (directory: $DIR_NAME, filename: $FILE_NAME)"
+            fi
+          done
+          
+          echo "PCB_FILES=$MATCHING_FILES" >> $GITHUB_ENV
+          
+          # Exit workflow early if no matching files
+          if [ -z "$MATCHING_FILES" ]; then
+            echo "No PCB files matching their parent folder name found, skipping further steps."
+            echo "SKIP_REMAINING=true" >> $GITHUB_ENV
+          else
+            echo "SKIP_REMAINING=false" >> $GITHUB_ENV
+          fi
+      
+      # Run your KiCad PCB checks only if matching PCBs were found
+      - name: Run KiCad PCB checks
+        if: env.SKIP_REMAINING != 'true'
+        run: |
+          for file in $PCB_FILES; do
+            echo "Processing matching PCB file: $file"
+            kicad-cli pcb drc --severity-error --exit-code-violations $file
+          done
