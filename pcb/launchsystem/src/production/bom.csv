@@ -1,0 +1,43 @@
+Designator,Footprint,Quantity,Value,LCSC Part #
+A1,Arduino_Nano,1,Arduino_Nano_Every,Arduino_Nano_Every
+BZ2,Buzzer_12x9.5RM7.6,1,Buzzer,AT-0927-TT-6-R
+"C1, C20, C21, C22, C3",805,5,0.1uF,CC0805KRX7R9BB104
+"C10, C8",805,2,100n,CC0805KRX7R9BB104
+C11,805,1,1uF,CL21B105KBFNNNE
+"C14, C2",805,2,10uF,GRM21BR61C106KE15K
+C15,805,1,3.3 nF,CC0805KPX7R9BB332
+C16,805,1,22uF,CL21A226MQQNNNE
+C18,805,1,1u,CL21B105KBFNNNE
+C4,805,1,1nF,C0805C102J5GACTU
+C6,805,1,1000uF,https://www.amazon.com/McIgIcM-1000uf-capacitor-Aluminum-electrolytic/dp/B06WGPNM19
+"C7, C9",805,2,100uF,GRM21BR60G107ME11L
+"D10, D14, D8, D9",LED_D3.0mm,4,LED,151051RS11000
+"D11, D12, D13",D_SOD-123F,3,1N4007,1N4007
+D15,Nexperia_CFP3_SOD-123W,1,PMEG6020ER,"PMEG6020ER,115"
+"D16, D17",201,2,LED,XL-0201UBC
+IC1,SOIC-8_3.9x4.9mm_P1.27mm,1,LM555N,https://www.rocelec.com/part/01t4w00000PPpp2AAD-NE555D?utm_term=&utm_campaign=USA+-+PMAX&utm_source=adwords&utm_medium=ppc&hsa_net=adwords&hsa_tgt=&hsa_ad=&hsa_acc=2274246953&hsa_grp=&hsa_mt=&hsa_cam=19547754453&hsa_kw=&hsa_ver=3&hsa_src=x&gad_source=1&gad_campaignid=19547755830&gbraid=0AAAAADfiOy48rOIikMWAzuJoLSx5VJIQy&gclid=CjwKCAjw3MXBBhAzEiwA0vLXQeX0mftzuR1HXzPabpggjZyclBkBzgK3EKzQhAwWJqn3qBtGCRnVTRoCzvAQAvD_BwE
+J3,AMASS_XT60-F_1x02_P7.20mm_Vertical,1,Conn_01x02_Pin,https://hobbymatehobby.com/products/10pcs-xt90-male-female-bullet-connectors-plugs-for-rc-lipo-battery?gQT=1
+,,,,
+L3,L_7.3x7.3_H4.5,1,SLF7055T-6R8N2R8-3PF,SLF7055T-6R8N2R8-3PF
+R1,805,1,52.3k,CRCW080552K3FKEA
+"R10, R3",805,2,1k,RC0805FR-071KL
+"R11, R12",805,2,4k7,CRCW08054K70FKEAC
+"R2, R9",805,2,10k,RR1220P-103-D
+R35,805,1,350k,ERJ-6GEYJ354V
+R37,805,1,100k,RC0805FR-07100KL
+R38,805,1,100,RC0805FR-07100RL
+R39,805,1,330,RC0805FR-07330RL
+R4,805,1,0,ERJ-6GEY0R00V
+R5,805,1,10K,RR1220P-103-D
+"R6, R7",805,2,2k2,CRG0805F2K2
+R8,805,1,470,CRGCQ0805J470R
+"SW10, SW7",PinHeader_1x03_P2.54mm_Vertical,2,SW_DPDT_x2,https://www.digikey.com/en/products/detail/e-switch/RA11131121/2720267
+SW2,PinHeader_1x03_P2.54mm_Vertical,1,SW_SPDT,https://www.digikey.com/en/products/detail/e-switch/RA11131121/2720267
+"SW3, SW4",PinHeader_1x02_P2.54mm_Vertical,2,SW_DPST_x2,https://www.digikey.com/en/products/detail/e-switch/RA11131121/2720267
+SW9,PinHeader_1x02_P2.54mm_Vertical,1,SW_Push,https://www.amazon.com/Heschen-Toggle-Switch-Position-Waterproof/dp/B0CP3P3MY7
+U1,SOT-23-6,1,TPS54308,TPS54308DDCR
+U12,SOT-23-5,1,AP2112K-3.3,AP2112K-3.3TRG1
+U2,Texas_SIL0008D_MicroSiP-8-1EP_2.8x3mm_P0.65mm_EP1.1x1.9mm_ThermalVias,1,TPS82130,TPS82130SILR
+U4,ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y,1,BMP390L,BMP390L
+U5,HVSOF5,1,BD1020HFV-TR,BD1020HFV-TR
+U6,DIP-4_W7.62mm,1,PC817,PC81710NIP1B
