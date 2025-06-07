@@ -1,0 +1,10 @@
+[project]
+name = "reflow-ci"
+version = "0.1.0"
+description = "Checks for Reflow's Continuous Integration and Automated Submission Review"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32.3",
+    "ruff>=0.11.13",
+]
