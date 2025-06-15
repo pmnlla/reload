@@ -11,7 +11,10 @@ In this function, a series of properties are exposed:
 - Github PR Number (as self.deps.pr_id)
 - Github Repo (as self.deps.pr_repo)
 - Github Authentication Token (as self.deps.gh_token)
-- Aside from these factors, no additional information is exposed to an intent.
+- ID of the author, as exposed through commits, by the Github API
+- List of files modified
+
+Aside from these factors, no additional information is exposed to an intent.
 
 An intent is meant to ping the Github API independently for any of its additional requirements, such as authors & contributors, modified files, diffs & patches, etc.
 
