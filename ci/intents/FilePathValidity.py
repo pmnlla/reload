@@ -6,6 +6,7 @@ import logging
 class FilePathValidityIntent(intent.Intent):
     def check(self):
         logger = logging.getLogger(__name__)
+        self.FailureReason = "Invalid or backtracking file path"
         data = json.loads(requests.get(f'https://api.github.com/repos/{self.deps.pr_repo}/pulls/{self.deps.pr_id}/files?per_page=1000').content)
         files = [item['filename'] for item in data]
 

@@ -7,3 +7,4 @@ class PresetDependency:
 class Intent:
     def __init__(self, deps):
         self.deps = deps
+        self.FailureReason = ""
