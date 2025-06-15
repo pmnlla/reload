@@ -1,5 +1,4 @@
-import requests
-import json
+
 from . import intent
 import logging
 
@@ -7,12 +6,10 @@ class FilePathValidityIntent(intent.Intent):
     def check(self):
         logger = logging.getLogger(__name__)
         self.FailureReason = "Invalid or backtracking file path"
-        data = json.loads(requests.get(f'https://api.github.com/repos/{self.deps.pr_repo}/pulls/{self.deps.pr_id}/files?per_page=1000').content)
-        files = [item['filename'] for item in data]
 
         status = True
 
-        for file in files:
+        for file in self.deps.files_list:
             if not file.startswith("pcb/") or ".." in file:
                 logger.error(f'FAIL: {file}')
                 status = False
@@ -21,3 +18,6 @@ class FilePathValidityIntent(intent.Intent):
         
         # no files attempt to escape the pcb/ directory, assume good intent
         return status
+
+if __name__ == "__main__":
+    print("\033[91m MANKIND IS DEAD. BLOOD IS FUEL. HELL IS FULL\033[0m \n talk is dull, send patches. hi@pomonella.dev")

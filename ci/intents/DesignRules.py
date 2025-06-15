@@ -1,5 +1,3 @@
-import requests
-import json
 import subprocess # check deps
 from . import intent # intent deps
 import logging # generic deps
@@ -8,12 +6,9 @@ class DesignRulesIntent(intent.Intent):
     def check(self):
         logger = logging.getLogger(__name__)
         self.FailureReason = "PCB does not pass DRC"
-        data = json.loads(requests.get(f'https://api.github.com/repos/{self.deps.pr_repo}/pulls/{self.deps.pr_id}/files?per_page=1000').content)
-        files = [item['filename'] for item in data]
-
         status = True
 
-        for file in files:
+        for file in self.deps.files_list:
             if file.endswith(("kicad_pcb")):
                 logger.info(f'Checking File for DRC Failures: {file}')
                 report = subprocess.run(f"kicad-cli pcb drc --schematic-parity --severity-error --exit-code-violations -o /tmp/report ../{file}")
@@ -26,3 +21,5 @@ class DesignRulesIntent(intent.Intent):
         # no non-kicad files are being added by repository, assume good intent
         return status
 
+if __name__ == "__main__":
+    print("\033[91m MANKIND IS DEAD. BLOOD IS FUEL. HELL IS FULL\033[0m \n talk is dull, send patches. hi@pomonella.dev")

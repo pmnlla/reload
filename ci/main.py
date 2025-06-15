@@ -1,6 +1,8 @@
 from intents.intent import PresetDependency, Intent
+from github import PopulateDeps
 import pkgutil, importlib
 import os, sys, logging
+import json, requests
 
 
 def load_tests(HeadPkgName):
@@ -20,15 +22,10 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.ERROR)
     logger = logging.getLogger(__name__)
 
-    # Attempt to fetch dependencies from environment variables - otherwise apply dummy data.
-    try:
-        deps = PresetDependency(pr_repo = os.environ["PR_REPO"], pr_id = os.environ["PR_NUMBER"], gh_token = os.environ["GH_TOKEN"])
-    except:
-        deps = PresetDependency(pr_repo = "pmnlla/reload", pr_id = "1", gh_token = "asdf")
+    deps = PopulateDeps.GenerateDefaultDependenciesObject()
 
-    # Configure reason log
+    # Start reason log
     failures = []
-        
 
     intent_classes = load_tests('intents')
     tests = [intent_class(deps) for intent_class in intent_classes]
