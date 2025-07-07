@@ -15,7 +15,7 @@ jobs:
         
       # Install KiCad tools (if needed)
       - name: Install KiCad
-      - id: kicad-inst
+        id: kicad-inst
         run: |
           sudo add-apt-repository -y ppa:kicad/kicad-9.0-releases
           sudo apt update
