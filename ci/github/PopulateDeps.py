@@ -44,6 +44,4 @@ def GenerateDefaultDependenciesObject():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    GenerateDefaultDependenciesObject()
     print("\033[91m MANKIND IS DEAD. BLOOD IS FUEL. HELL IS FULL\033[0m \n talk is dull, send patches. hi@pomonella.dev")
